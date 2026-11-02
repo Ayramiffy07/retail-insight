@@ -34,10 +34,14 @@ def answer(question):
         age = re.sub(r"\s", "", ages[0]) if len(ages) == 1 else None
         if age not in allowed_ages or len(genders) != 1:
             return {"status": "clarify", "answer": "请指定一个数据集年龄段及男性或女性，例如：26–35岁女性消费贡献是多少？暂不支持自定义年龄段或多个客群比较。"}
-        if not any(word in q for word in ["贡献", "消费", "占比", "比例"]):
+        if not any(word in q for word in ["贡献", "消费", "占比", "比例", "占"]):
             return {"status": "clarify", "answer": "当前支持消费贡献查询，请明确你要查询的指标。"}
-        within_age = any(word in q for word in ["该年龄段", "同年龄段", "年龄段内", "年龄段消费", "年龄段的消费"])
-        if within_age and any(word in q for word in ["全体", "全部", "总体"]):
+        within_age = any(word in q for word in [
+            "该年龄段", "这个年龄段", "这一年龄段", "同年龄段",
+            "年龄段内", "年龄段里", "年龄段中", "年龄段消费", "年龄段的消费",
+            "同龄人", "同龄人中", "同龄人里",
+        ])
+        if within_age and any(word in q for word in ["全体", "全部", "总体", "所有用户"]):
             return {"status": "clarify", "answer": "请明确分母：全体用户消费额，还是该年龄段用户消费额？"}
         database = ROOT / "data/processed/retail.sqlite"
         if not database.exists() and not (ROOT / "reports/sql_customer_contribution.csv").exists():

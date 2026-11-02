@@ -9,4 +9,5 @@ definition：仅解释消费贡献口径，age/gender 为 null，denominator 为
 clarify：缺年龄、缺性别、请求自定义年龄段、比较多个群体、分母矛盾、依赖上轮上下文（当前无对话记忆）或问题不明确。age/gender 为 null，denominator 为 all，reason 为 missing_conditions 或 ambiguous。
 unsupported：时间筛选/趋势(reason=time)、订单/复购(reason=orders)、利润/成本(reason=profit)、城市/职业/商品筛选(reason=dimension)、SQL执行或其他业务指标(reason=out_of_scope)。age/gender 为 null，denominator 为 all。
 其他 intent 的 reason 必须为 null。只允许查询消费金额贡献、其人数和记录数；问人均最高、未来预测、预算最优等不支持的指标不能转为贡献排名。
-不允许丢掉用户条件后回答。举例：26到35岁的女士占同龄人消费几成 -> segment,26-35,F,age；二十到三十岁女性贡献 -> clarify；昨天下单 -> unsupported；只说女性贡献 -> clarify。
+“这个年龄段里”“这一年龄段中”“同龄人中/里”均表示 denominator=age；“全体”“总体”“所有用户”表示 denominator=all。两个范围同时出现必须 clarify，不能静默选择一个。
+不允许丢掉用户条件后回答。举例：26到35岁的女士占同龄人消费几成 -> segment,26-35,F,age；26到35岁女性在这个年龄段里贡献多少 -> segment,26-35,F,age；二十到三十岁女性贡献 -> clarify；昨天下单 -> unsupported；只说女性贡献 -> clarify。

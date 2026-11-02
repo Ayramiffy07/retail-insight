@@ -57,7 +57,16 @@ def render_customer_analysis(overview):
     sort_label = st.selectbox("比较目标", list(options), key="analysis_sort")
     ordered = analysis.sort_values([options[sort_label], "age", "gender"], ascending=[False, True, True])
     leader = ordered.iloc[0]
-    st.write(f"按{sort_label}排序，首位客群：**{leader['segment']}**。不同排序目标可能得到不同结论。")
+    if sort_label == "消费贡献":
+        leader_value = f"{leader[options[sort_label]]:.2%}"
+    elif sort_label == "人均累计消费":
+        leader_value = f"{leader[options[sort_label]]:,.2f}（原始数据单位）"
+    elif sort_label == "用户规模":
+        leader_value = f"{leader[options[sort_label]]:,.0f} 人"
+    else:
+        leader_value = f"{leader[options[sort_label]]:,.2f} 条/人"
+    st.info(f"当前比较：全体14个年龄×性别客群 · {sort_label}。首位为 {leader['segment']}：{leader_value}。")
+    st.write("不同排序目标可能得到不同结论；请结合用户规模、指标口径和数据范围判断。")
     st.caption("阅读顺序：先选比较目标，再结合用户规模核查结果，最后下载简报。人均消费是历史累计值，不是未来客户价值。")
     cols = ["segment", "user_count", "total_purchase", "share_of_all_purchase", "spend_per_user", "records_per_user", "spend_vs_baseline"]
     labels = {"segment": "客群", "user_count": "用户数", "total_purchase": "累计消费额", "share_of_all_purchase": "占全体消费额", "spend_per_user": "人均累计消费", "records_per_user": "人均购买记录数", "spend_vs_baseline": "人均消费/全体均值"}
@@ -130,7 +139,7 @@ with st.expander("按条件查询客群 · 无需组织问题"):
 
 st.divider()
 st.subheader("指标知识问答 · RAG")
-st.caption("用于查询指标定义、数据限制、产品能力和评测口径。经营数值仍由上方 SQL 路径计算。回答会展示知识库文档与章节。")
+st.caption("用于查询指标定义、数据限制、产品能力和评测口径。经营数值仍由上方 SQL 路径计算。" + ("回答会展示知识库文档与章节。" if model_enabled else "公开模式只检索并展示知识依据，不生成模型回答。"))
 rag_examples = [
     "购买记录数是不是订单数？",
     "人均累计消费是怎么计算的？",
@@ -141,7 +150,8 @@ rag_examples = [
 with st.form("knowledge_form"):
     rag_question = st.text_input("你想了解哪个口径或限制？", placeholder="例如：购买记录数是不是订单数？", max_chars=500)
     rag_example = st.selectbox("知识问答示例（输入为空时使用）", rag_examples)
-    rag_submitted = st.form_submit_button("检索知识并回答", type="primary")
+    rag_action_label = "检索知识并回答" if model_enabled else "检索知识依据"
+    rag_submitted = st.form_submit_button(rag_action_label, type="primary")
 
 if rag_submitted:
     chosen_rag_question = rag_question.strip() or rag_example

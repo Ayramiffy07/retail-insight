@@ -1,0 +1,12 @@
+[
+  {"id":"DR01","question":"26到35岁女性占全部消费多少？","expected_status":"answered","expected_share_field":"share_of_all_purchase"},
+  {"id":"DR02","question":"26到35岁女性占总体消费多少？","expected_status":"answered","expected_share_field":"share_of_all_purchase"},
+  {"id":"DR03","question":"26到35岁女性占所有用户消费多少？","expected_status":"answered","expected_share_field":"share_of_all_purchase"},
+  {"id":"DR04","question":"26到35岁女性在这个年龄段里贡献了多少消费？","expected_status":"answered","expected_share_field":"share_of_age_purchase"},
+  {"id":"DR05","question":"26到35岁女性在这一年龄段中占多少？","expected_status":"answered","expected_share_field":"share_of_age_purchase"},
+  {"id":"DR06","question":"26到35岁女性占同龄人消费几成？","expected_status":"answered","expected_share_field":"share_of_age_purchase"},
+  {"id":"DR07","question":"26到35岁女性在同龄人里占多少消费？","expected_status":"answered","expected_share_field":"share_of_age_purchase"},
+  {"id":"DR08","question":"26到35岁女性占全体和这个年龄段里的消费分别多少？","expected_status":"clarify"},
+  {"id":"DR09","question":"26到35岁女性占所有用户及同龄人消费多少？","expected_status":"clarify"},
+  {"id":"DR10","question":"女性在这个群体里贡献多少？","expected_status":"clarify"}
+]

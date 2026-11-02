@@ -72,7 +72,10 @@ def request_plan(question, api_key, model="deepseek-flash", timeout=20, opener=N
         raise PlanError("question_length")
     # One supported denominator per query: never silently discard a second one.
     all_scope = any(word in question for word in ["全体", "全部", "总体", "所有用户"])
-    age_scope = any(word in question for word in ["该年龄段", "同年龄段", "年龄段内", "同龄人"])
+    age_scope = any(word in question for word in [
+        "该年龄段", "这个年龄段", "这一年龄段", "同年龄段",
+        "年龄段内", "年龄段里", "年龄段中", "同龄人", "同龄人中", "同龄人里",
+    ])
     if all_scope and age_scope:
         return {
             "status": "clarify",
