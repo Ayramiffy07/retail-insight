@@ -25,28 +25,50 @@ spec.loader.exec_module(assistant)
 st.set_page_config(page_title="零售经营分析助手", page_icon="📊", layout="wide")
 st.markdown("""
 <style>
-.stApp {background:#f5f7fb;color:#182338}
-[data-testid="stSidebar"] {background:#edf2f8}
-.block-container {padding-top:1.5rem;max-width:1380px}
-h1,h2,h3 {color:#172840!important;letter-spacing:-.025em}
-[data-testid="stMetric"] {background:white;border:1px solid #e4eaf2;border-radius:14px;padding:18px}
+.stApp {background:#f7f9fc;color:#172033;font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC","Segoe UI",sans-serif}
+[data-testid="stSidebar"] {background:#0f1f36;border-right:1px solid #203551}
+[data-testid="stSidebar"] * {color:#d9e5f4}
+[data-testid="stSidebar"] [data-testid="stCaptionContainer"],
+[data-testid="stSidebar"] [data-testid="stCaptionContainer"] * {color:#a9bad0!important}
+[data-testid="stSidebar"] hr {border-color:#29405e}
+[data-testid="stSidebar"] [data-testid="stExpander"] {background:#152a46;border:1px solid #2a4260!important;box-shadow:none}
+[data-testid="stSidebar"] [data-testid="stExpander"] summary:hover {background:#1a3150;border-radius:12px}
+[data-testid="stSidebar"] [data-testid="stExpander"] summary p,
+[data-testid="stSidebar"] [data-testid="stExpander"] summary svg {color:#e7eff9!important;fill:#e7eff9!important;font-weight:600}
+[data-testid="stSidebar"] [data-testid="stExpanderDetails"] {border-top:1px solid #29405e;padding-top:.7rem}
+.stApp button,.stApp input,.stApp select,.stApp textarea {font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC","Segoe UI",sans-serif}
+.block-container {padding-top:1.2rem;padding-bottom:4rem;max-width:1220px}
+h1,h2,h3 {color:#12213a!important;letter-spacing:-.025em}
+h2 {font-size:1.55rem!important;margin-top:1.6rem!important}
+p,li {line-height:1.65}
+[data-testid="stMetric"] {background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:18px 20px;box-shadow:0 8px 24px rgba(15,31,54,.045)}
 [data-testid="stMetricLabel"] {color:#65738a}
-[data-testid="stMetricValue"] {color:#182d4c;font-size:clamp(1.25rem,2.3vw,2rem)}
+[data-testid="stMetricValue"] {color:#132a4a;font-size:clamp(1.25rem,2.3vw,2rem)}
 [data-testid="stMetricLabel"] p {white-space:normal}
-.stButton button[kind="primary"] {border-radius:9px;padding:.45rem 1.4rem}
-@media(max-width:800px) {.block-container {padding:1rem}.hero {padding:14px}.hero h1 {font-size:23px}}
-[data-testid="stForm"] {background:white;border:1px solid #e4eaf2;border-radius:16px;padding:20px}
-.hero {background:linear-gradient(115deg,#152b4b,#254b75);border-radius:14px;padding:16px 24px;margin-bottom:12px;color:white}
-.hero h1 {color:white!important;font-size:30px;margin:8px 0}
-.hero p {color:#c9d9ec;margin:0;font-size:14px}
-.badge {color:#a9d9fc;font-size:12px;letter-spacing:.15em}
+[data-testid="stForm"] {background:#fff;border:1px solid #dfe7f1;border-radius:20px;padding:22px 24px;box-shadow:0 12px 32px rgba(15,31,54,.055)}
+[data-testid="stExpander"] {background:#fff;border-color:#e1e7ef!important;border-radius:14px!important}
+.stButton button,.stDownloadButton button {border-radius:10px;min-height:2.65rem;font-weight:600}
+.stButton button[kind="primary"] {background:#2563eb;border-color:#2563eb;padding:.55rem 1.5rem;box-shadow:0 8px 18px rgba(37,99,235,.2)}
+.stButton button[kind="primary"]:hover {background:#1d4ed8;border-color:#1d4ed8}
+.hero {position:relative;overflow:hidden;background:linear-gradient(125deg,#0f2038 0%,#173b68 58%,#2563eb 145%);border-radius:22px;padding:28px 32px;margin-bottom:14px;color:white;box-shadow:0 18px 44px rgba(15,31,54,.18)}
+.hero:after {content:"";position:absolute;width:260px;height:260px;border-radius:50%;right:-90px;top:-125px;background:rgba(96,165,250,.17)}
+.hero h1 {color:white!important;font-size:34px;margin:8px 0 6px;line-height:1.15}
+.hero p {color:#cedcf0;margin:0;font-size:15px;max-width:720px}
+.eyebrow {color:#8fc6ff;font-size:11px;font-weight:700;letter-spacing:.17em;text-transform:uppercase}
+.hero-tags {display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.hero-tag {border:1px solid rgba(191,219,254,.24);background:rgba(255,255,255,.08);color:#e7f1ff;border-radius:999px;padding:5px 10px;font-size:12px}
+.section-kicker {color:#2563eb;font-size:12px;font-weight:750;letter-spacing:.12em;margin-top:1.4rem;text-transform:uppercase}
+.section-copy {color:#667085;margin-top:-.25rem;margin-bottom:1rem}
+div[data-testid="stAlert"] {border-radius:14px}
+@media(max-width:800px) {.block-container {padding:1rem}.hero {padding:22px}.hero h1 {font-size:27px}}
 </style>
-<div class="hero"><div class="badge">RETAIL INSIGHT / 经营分析工作台</div>
-<h1>零售经营分析工作台</h1>
-<p>查询消费贡献 · 比较客群表现 · 查看指标依据 · 导出分析结果</p></div>
+<div class="hero"><div class="eyebrow">Retail Insight · AI Data Product Prototype</div>
+<h1>零售经营分析助手</h1>
+<p>用自然语言查询客群贡献，核对指标口径，并追溯每一条分析结果的数据依据。</p>
+<div class="hero-tags"><span class="hero-tag">受控 SQL</span><span class="hero-tag">可追溯口径</span><span class="hero-tag">RAG 知识库</span><span class="hero-tag">结果可导出</span></div></div>
 """, unsafe_allow_html=True)
 model_enabled = os.environ.get("RETAIL_ENABLE_MODEL") == "1"
-st.caption("个人作品集 / 单用户原型 / 默认规则查询" + (" / 已启用本地受控模型试用" if model_enabled else " / 公开模式未开放模型调用"))
+st.caption("个人作品集 · 单用户原型 · 已核验汇总数据" + (" · 已启用受控模型试用" if model_enabled else " · 公开模式不调用付费模型"))
 
 def render_customer_analysis(overview):
     st.divider()
@@ -90,11 +112,11 @@ def render_customer_analysis(overview):
     exports[1].download_button("下载多指标比较表", comparison_table.to_csv(index=False).encode("utf-8-sig"), file_name="customer_comparison.csv", mime="text/csv")
 
 with st.sidebar:
-    st.markdown("### RETAIL INSIGHT")
-    st.caption("经营分析工作台 · v0.6 · RAG 本地验证版")
+    st.markdown("## RETAIL INSIGHT")
+    st.caption("经营分析助手 · Portfolio Demo")
     st.divider()
-    st.markdown("**工作区**")
-    st.write("客群贡献分析")
+    st.markdown("**当前工作区**")
+    st.write("📈 客群贡献分析")
     query_mode = "rule"
     if model_enabled:
         chosen_mode = st.radio("问题理解方式", ["规则模式", "模型试用"], key="query_mode")
@@ -121,24 +143,35 @@ overview = assistant.answer(examples[0])
 if overview["status"] == "answered":
     overview_rows = overview["evidence"]
     st.caption(f"数据集概况 · {sum(r['user_count'] for r in overview_rows):,} 名用户 · {sum(r['record_count'] for r in overview_rows):,} 条购买记录 · {len(overview_rows)} 个年龄×性别客群 · 无时间筛选")
-with st.expander("第一次使用？按一个业务任务体验"):
-    st.write("① 查贡献：找出贡献最高的客群。② 换口径：查询某客群占全体或同龄人消费的比例。③ 做判断：在下方多指标分析比较人数与人均消费，再导出简报。")
-    st.caption("自然语言入口只支持白名单内的贡献查询。多指标比较使用固定程序；当前没有日期、门店、库存或订单数据，不能回答真实门店销量与复购问题。")
+st.markdown('<div class="section-kicker">01 · Business Query</div>', unsafe_allow_html=True)
+st.subheader("向经营助手提问")
+st.markdown('<div class="section-copy">选择一个示例，或输入包含年龄、性别和统计口径的完整问题。</div>', unsafe_allow_html=True)
 with st.form("question_form"):
-    question = st.text_input("你想了解哪个客群？", placeholder="例如：26–35岁女性占该年龄段消费额多少？", max_chars=500)
-    example = st.selectbox("示例问题（输入为空时使用）", examples)
-    submitted = st.form_submit_button("查询分析", type="primary")
+    question = st.text_input("经营问题", placeholder="例如：26–35岁女性占该年龄段消费额多少？", max_chars=500)
+    form_cols = st.columns([4.5, 1.2])
+    example = form_cols[0].selectbox("快捷示例（输入为空时使用）", examples)
+    form_cols[1].write("")
+    submitted = form_cols[1].form_submit_button("开始分析", type="primary", use_container_width=True)
 
-with st.expander("按条件查询客群 · 无需组织问题"):
+with st.expander("高级筛选 · 不输入自然语言也可以查询"):
     with st.form("segment_form"):
         controls = st.columns(3)
         selected_age = controls[0].selectbox("年龄段", ["0-17", "18-25", "26-35", "36-45", "46-50", "51-55", "55+"], index=2)
         selected_gender = controls[1].selectbox("性别", ["女性", "男性"])
         selected_scope = controls[2].selectbox("占比分母", ["全体用户", "该年龄段"])
-        selected_submit = st.form_submit_button("分析此客群")
+        selected_submit = st.form_submit_button("按所选条件分析")
+
+with st.expander("第一次使用？查看支持范围"):
+    st.write("① 查贡献：找出贡献最高的客群。② 换口径：查询某客群占全体或同年龄段消费的比例。③ 做判断：结合人数和人均消费比较客群。")
+    st.caption("当前没有日期、门店、库存或订单字段，因此不回答门店销量、复购率和时间趋势问题。")
+
+# Created here so query results stay directly below the query controls even
+# though the request is processed after the knowledge-base form is declared.
+query_result_slot = st.container()
 
 st.divider()
-st.subheader("指标知识问答 · RAG")
+st.markdown('<div class="section-kicker">02 · Knowledge Base</div>', unsafe_allow_html=True)
+st.subheader("指标知识库")
 st.caption("用于查询指标定义、数据限制、产品能力和评测口径。经营数值仍由上方 SQL 路径计算。" + ("回答会展示知识库文档与章节。" if model_enabled else "公开模式只检索并展示知识依据，不生成模型回答。"))
 rag_examples = [
     "购买记录数是不是订单数？",
@@ -275,6 +308,9 @@ if submitted:
 
 if "result" not in st.session_state and overview["status"] == "answered":
     st.session_state["result"] = ("默认概览：哪些客群消费贡献最高？", overview)
+
+query_result_slot.__enter__()
+st.markdown('<div class="section-kicker">Analysis Result</div>', unsafe_allow_html=True)
 if "result" in st.session_state:
     chosen, response = st.session_state["result"]
     st.caption(f"当前结果对应问题：{chosen}")
@@ -374,6 +410,7 @@ if "result" in st.session_state:
         st.warning(response["answer"])
     st.download_button("下载本次查询凭据 JSON", query_receipt(chosen, response).encode("utf-8"), file_name="retail_query_receipt.json", mime="application/json")
     st.caption("凭据包含本次问题、结果、条件与来源；仅下载到本机，不代表服务器已持久化审计。分享前确认问题中没有敏感内容。")
+query_result_slot.__exit__(None, None, None)
 
 if overview["status"] == "answered":
     render_customer_analysis(overview)
@@ -394,8 +431,12 @@ with st.expander("项目证据：RAG 如何评测与迭代？"):
 
 with st.sidebar:
     st.divider()
-    st.subheader("本次会话查询")
-    for item in st.session_state.get("query_history", [])[:5]:
-        status_label = {"answered": "已查询", "clarify": "待澄清", "unsupported": "暂不支持", "definition": "口径说明", "error": "查询异常"}.get(item["状态"], item["状态"])
-        st.caption(f"• {item['问题']} · {status_label}")
-    st.caption("仅保存在当前会话，不是企业审计日志。")
+    history_items = st.session_state.get("query_history", [])[:5]
+    with st.expander(f"本次会话记录（{len(history_items)}）"):
+        if history_items:
+            for item in history_items:
+                status_label = {"answered": "已完成", "clarify": "需补充条件", "unsupported": "超出范围", "definition": "口径说明", "error": "查询异常"}.get(item["状态"], item["状态"])
+                st.caption(f"• {status_label}｜{item['问题']}")
+        else:
+            st.caption("提交问题后将在这里显示最近记录。")
+        st.caption("记录仅保留在当前会话。")
