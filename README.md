@@ -1,32 +1,49 @@
 # Retail Insight · 零售经营分析助手
 
-面向零售运营人员的个人 To B 场景原型：通过自然语言或条件筛选查询客群贡献，核对口径、比较人数与人均消费，并导出证据。需求来自场景假设，尚无实际企业客户或业务收益验证。
+面向零售运营人员的 AI 数据产品原型：用自然语言查询客群贡献，以受控参数解析、参数化 SQL 和可引用 RAG 回答保证口径与证据可追溯。
 
-## 实现与发布状态
+[在线演示](https://ayra-retail-insight.streamlit.app/) · [4 页项目作品集 PDF](portfolio/RetailInsight_项目作品集.pdf) · [产品需求文档 PRD](docs/product_requirements.md) · [完整评测报告](reports/holdout_v1_report.md)
 
-| 部分 | 当前状态 |
-| --- | --- |
-| 已发布在线演示 | 规则版查询，使用14个核验汇总客群，不开放付费模型调用 |
-| 本地升级版 | DeepSeek受控参数解析、RAG指标知识问答、规则/模型切换、多指标比较与证据导出 |
-| 数据层 | 本地55万条记录SQLite；无明细数据库时使用内存SQLite查询汇总快照 |
-| 质量验证 | 原15条回归通过；冻结20题规则版10/20、模型与程序校验20/20；不能外推为生产准确率 |
-| 尚待补齐 | 真实用户试用、澄清与拒答文本人工复核、公开模型访问控制与持久化费用限制 |
+> 个人项目｜Python · SQL · SQLite · Streamlit · DeepSeek · RAG｜2026.08—2026.11
+>
+> 需求来自作品集场景假设，尚无实际企业客户、真实用户研究或业务收益验证。
 
-模型只做问题理解和参数提取，不自由生成SQL；参数通过校验后执行批准查询。SQL计算金额，模型异常明确返回，不静默冒充成功。
+## Demo 界面导览
 
-指标定义、数据限制、产品能力和评测口径走独立 RAG 路径：仅检索批准知识文档，模型回答必须返回有效引用 ID；无依据问题在模型调用前拒答。结构化经营数值仍由 SQL 计算，不使用 RAG 文本代替。
+![Retail Insight 公开规则版界面导览](assets/retail-insight-demo.gif)
 
-## 核心流程
+公开演示使用 14 个核验汇总客群，支持规则查询、条件筛选和免费知识检索；配置 API Key 的本地增强版支持受控模型解析与带引用的 RAG 回答。
+
+## 系统架构
+
+![Retail Insight 系统架构](assets/system-architecture.png)
+
+- **经营数值路径：**模型只提取受控参数，不自由生成 SQL；程序完成白名单校验，再执行批准的参数化 SQL。
+- **指标知识路径：**仅检索批准知识文档；回答必须通过引用 ID 校验，无依据问题在模型调用前拒答。
+- **异常处理：**缺少条件时澄清，超出数据范围时拒答，模型或传输异常显式返回，不静默冒充成功。
+
+## 核心评测结果
+
+| 评测对象 | 方法 | 结果 |
+| --- | --- | --- |
+| 冻结查询集 | 20 题覆盖排名、同义表达、缺条件、双分母、越界问题与注入 | 规则版 **10/20**；模型＋程序校验 **20/20**；数值题 **6/6** 对账 |
+| RAG 开发集 | 12 题检查目标章节、必要答案点、引用和无依据拒答 | 关键词检索 **12/12**；RAG v1 人工复核 **11/12** |
+| 分母专项回归 | 10 题覆盖“全体”“年龄段内”“同龄人中”及双分母冲突 | 修复后 **10/10** |
+| 模拟黑盒走查 | 5 个公开界面任务，记录完成情况与阻塞点 | 初始 **3 通过、1 失败、1 部分通过**；失败项已修复并回归 |
+
+上述结果来自冻结验收集或开发集，不能外推为生产准确率。完整证据见[项目作品集](portfolio/RetailInsight_项目作品集.md)、[RAG 开发评测](reports/rag_dev_review.md)、[分母回归集](evals/denominator_regression.json)与[模拟黑盒报告](reports/simulated_blackbox_review_2026-10-28.md)。
+
+## 产品流程
 
 ```text
-业务问题 → 规则或模型提取有限参数 → 校验 → 批准的参数化SQL
-                                      ↓
-                        SQLite → 结果、口径、证据、导出
+业务问题 → 规则或模型提取有限参数 → 程序校验 → 批准的参数化 SQL
+                                           ↓
+                                SQLite → 结果、口径、证据、导出
 
-知识问题 → 关键词检索批准章节 → 受控模型回答 → 引用校验与证据导出
+知识问题 → 检索批准知识章节 → 受控模型回答 → 引用 ID 校验与证据导出
 ```
 
-[产品需求文档（PRD）](docs/product_requirements.md) · [RAG 知识库](knowledge/README.md) · [RAG开发评测](reports/rag_dev_review.md) · [冻结验收报告](reports/holdout_v1_report.md) · [本地模型启动说明](docs/local_model_demo.md) · [用户试用任务](docs/user_trial_protocol.md)
+[项目作品集：在线阅读](portfolio/RetailInsight_项目作品集.md) · [PDF](portfolio/RetailInsight_项目作品集.pdf) · [Word](portfolio/RetailInsight_项目作品集.docx) · [RAG 知识库](knowledge/README.md) · [本地模型说明](docs/local_model_demo.md) · [用户试用方案](docs/user_trial_protocol.md)
 
 ## 网页演示
 

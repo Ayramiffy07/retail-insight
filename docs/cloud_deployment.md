@@ -6,6 +6,6 @@
 
 本地设置 RETAIL_DEMO_MODE=1 可强制测试同一路径。运行 scripts/check_cloud_demo.py 检查本地与快照路径的指标一致性。
 
-登录 https://share.streamlit.io ，创建应用，选择 Ayramiffy07/black-friday-customer-analysis、main、app.py。高级设置选 Python 3.12。子域名可尝试 ayra-retail-insight，是否可用以上线平台为准。不要将未验证的候选地址写入简历。
+登录 https://share.streamlit.io ，创建应用，选择 Ayramiffy07/retail-insight、main、app.py。高级设置选 Python 3.12。子域名可尝试 ayra-retail-insight，是否可用以上线平台为准。不要将未验证的候选地址写入简历。
 
 部署后用无痕窗口验证：全体排名、26–35岁女性占全体8.69%、占该年龄段21.80%、无效年龄请求澄清、日期问题拒答、CSV下载。线上URL确认可公开访问后，再加入README和简历。
